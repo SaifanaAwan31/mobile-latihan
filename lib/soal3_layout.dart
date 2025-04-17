@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
+import 'dashboard.dart'; // import dashboard yang menerima username
 
-class Soal3Layout extends StatelessWidget {
+class Soal3Layout extends StatefulWidget {
   const Soal3Layout({super.key});
+
+  @override
+  State<Soal3Layout> createState() => _Soal3LayoutState();
+}
+
+class _Soal3LayoutState extends State<Soal3Layout> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    String username = _usernameController.text;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardScreen(username: username),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue[50], // Background biru muda
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title: const Text('uji Login'),
-        backgroundColor: Colors.lightBlue, // AppBar biru muda
+        title: const Text('Uji Login'),
+        backgroundColor: Colors.lightBlue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -18,50 +38,36 @@ class Soal3Layout extends StatelessWidget {
           children: [
             const Text(
               'Login',
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.blue, // Judul Login warna biru
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
                 labelText: 'Username',
                 border: OutlineInputBorder(),
+                filled: true,
                 fillColor: Colors.white,
-                filled: true, // Biar kotak input putih
               ),
             ),
             const SizedBox(height: 20),
-            const TextField(
+            TextField(
+              controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
+                filled: true,
                 fillColor: Colors.white,
-                filled: true, // Biar kotak input putih
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlue, // Tombol Login biru muda
-                  ),
-                  child: const Text('Login'),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.blue, // Register biru
-                  ),
-                  child: const Text('Register'),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: _login,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.lightBlue,
+              ),
+              child: const Text('Login'),
             ),
           ],
         ),
